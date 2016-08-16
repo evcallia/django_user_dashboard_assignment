@@ -13,9 +13,9 @@ urlpatterns = [
   url(r'^edit(?P<id>\d+)$', views.edit, name='edit'),
   url(r'^remove(?P<id>\d+)$', views.remove, name='remove'),
   url(r'^log-off$', views.log_off, name='log-off'),
-  url(r'^update$', views.update, name='update'),
-  url(r'^message$', views.message, name='message'),
-  url(r'^comment$', views.comment, name='comment'),
+  url(r'^update(?P<id>\d+)$', views.update, name='update'),
+  url(r'^message(?P<post_to_id>\d+)$', views.message, name='message'),
+  url(r'^comment(?P<message_id>\d+)/(?P<post_to_id>\d+)$', views.comment, name='comment'),
 ]
 
 

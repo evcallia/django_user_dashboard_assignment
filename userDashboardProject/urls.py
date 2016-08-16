@@ -17,5 +17,5 @@ from django.conf.urls import url, include
 from django.contrib import admin
 
 urlpatterns = [
-    url(r'^admin/', include('userDashboard.urls', namespace='dashboard')),
+    url(r'^', include('apps.userDashboard.urls', namespace='dashboard')),
 ]

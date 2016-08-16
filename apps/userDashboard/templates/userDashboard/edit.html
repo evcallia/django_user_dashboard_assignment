@@ -7,27 +7,38 @@
     <body>
         <div id="head">
             <h3>Test App</h3>
-            <h6><a href="{% url 'dashboard:dashboard' }">Dashboard</a></h6>
-            <h6><a href="{% url 'dashboard:edit' id=request.session.id}">Profile</a></h6>
+            <h6><a href="{% url 'dashboard:dashboard' %}">Dashboard</a></h6>
+            <h6><a href="{% url 'dashboard:edit' id=request.session.id %}">Profile</a></h6>
             <h6><a href="{% url 'dashboard:log-off' %}">Log Off</a></h6>
         </div>
+        {% if messages %}
+            {% for message in messages %}
+                <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+            {% endfor %}
+        {% endif %}
         {% if user.id == request.session.id %}
             <h3>Edit profile</h3>
         {% else %}
             <h3>Edit user #{{user.id}}</h3>
         {% endif %}
         <div id="edit_info">
-            <form action="{% url 'dashboard:update' %}" method="POST">
+            <form action="{% url 'dashboard:update' id=user.id %}" method="POST">
                 {% csrf_token %}
                 <label>First Name:<input type="text" name="first_name" value="{{user.first_name}}"></label>
                 <label>Last Name:<input type="text" name="last_name" value="{{user.last_name}}"></label>
                 <label>Email:<input type="email" name="email" value="{{user.email}}"></label>
+                {% if user_level == 9%}
+                    <select name='user_level'>
+                        <option value=1>Normal</option>
+                        <option value=9>Admin</option>
+                    </select>
+                {% endif %}
                 <input type="hidden" name="edit_type" value="info">
                 <input type="submit" value="Save">
             </form>
         </div>
         <div id="change_password">
-            <form action="{% url 'dashboard:update' %}" method="POST">
+            <form action="{% url 'dashboard:update' id=user.id %}" method="POST">
                 {% csrf_token %}
                 <label>Password:<input type="password" name="password"></label>
                 <label>Password Confirmation:<input type="password" name="password_confirmation"></label>
@@ -36,9 +47,11 @@
             </form>
         </div>
         <div id="edit_description">
-            <form action="{% url 'dashboard:update' %}" method="post">
-                <textarea name="description" rows="8" cols="40"></textarea>
-                <input type="hidden" name="edit_type" value="descriptoin">
+            <form action="{% url 'dashboard:update' id=user.id %}" method="post">
+                {% csrf_token %}
+                <label>Description</label>
+                <textarea name="description" rows="8" cols="40">{{user.description}}</textarea>
+                <input type="hidden" name="edit_type" value="description">
                 <input type="submit" value="Save">
             </form>
         </div>

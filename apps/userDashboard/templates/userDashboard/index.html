@@ -13,6 +13,7 @@
         <h1>Welcome to the Test</h1>
         <p>We're going to build a cool application using  MVC framework!</p>
         <form action="{% url 'dashboard:login' %}" method="post">
+            {% csrf_token %}
             <input type="submit" value="Start">
         </form>
         <div>
