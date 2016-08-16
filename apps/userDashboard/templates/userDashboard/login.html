@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Sign In</title>
+    </head>
+    <body>
+        <div id="head">
+            <h3>Test App</h3>
+            <h6><a href="{% url 'dashboard:index'}">Home</a></h6>
+            <h6>>Sign In</h6>
+        </div>
+        <h2>Signin</h2>
+        <form action="{% url 'dashboard:proc_login' %}" method="post">
+            {% csrf_token %}
+            <label>Email Address: <input type="text" name="email"></label>
+            <label>Password: <input type="password" name="password"></label>
+            <input type="submit" value="Sign In">
+        </form>
+        <a href="{% url dashboard:register %}">Dont have an account? Register</a>
+    </body>
+</html>

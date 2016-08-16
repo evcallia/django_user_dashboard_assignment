@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+    </head>
+    <body>
+        <div id="head">
+            <h3>Test App</h3>
+            <h6>Dashboard</h6>
+            <h6><a href="{% url 'dashboard:edit' id=request.session.id}"></a></h6>
+            <h6><a href="{% url 'dashboard:log-off' %}">Log Off</a></h6>
+        </div>
+        {% if user.user_level == 9 %}
+            <h3>Manage Users</h3>
+            <form action="{% url 'dashboard:new' %}" method="post">
+                <input type="submit" value="Add new">
+            </form>
+        {% else %}
+            <h3>All Users</h3>
+        {% endif %}
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>email</th>
+                <th>created_at</th>
+                <th>user_level</th>
+                {% if user.user_level == 9 %}
+                    <th>actions</th>
+                {% endif %}
+            </tr>
+            {% for user in users %}
+            <tr>
+                <td>{{user.id}}</td>
+                <td><a href="{% url 'dashboard:show' id=user.id %}">{{user.first_name}} {{user.last_name}}</a></td>
+                <td>{{user.created_at}}</td>
+                {% if user.user_level == 9 %}
+                    <td>admin</td>
+                    <td>
+                        <ul>
+                            <li><a href="{% url 'dashboard:edit' id=user.id %}">edit</a></li>
+                            <li><a href="{% url 'dashboard:remove' id=user.id %}">remove</a></li>
+                        </ul>
+                    </td>
+                {% else %}
+                    <td>normal</td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+
+        </table>
+    </body>
+</html>

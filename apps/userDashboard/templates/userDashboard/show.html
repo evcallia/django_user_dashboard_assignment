@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Message</title>
+    </head>
+    <body>
+        <div id="head">
+            <h3>Test App</h3>
+            <h6><a href="{% url 'dashboard:dashboard' }">Dashboard</a></h6>
+            <h6><a href="{% url 'dashboard:edit' id=request.session.id}">Profile</a></h6>
+            <h6><a href="{% url 'dashboard:log-off' %}">Log Off</a></h6>
+        </div>
+        <h3>{{user.first_name}} {{user.last_name}}</h3>
+        <table>
+            <tr>
+                <th>Registered at:</th>
+                <td>{{user.created_at}}</td>
+            </tr>
+            <tr>
+                <th>User ID:</th>
+                <td>#{{user.id}}</td>
+            </tr>
+            <tr>
+                <th>Email Address:</th>
+                <td>{{user.email}}</td>
+            </tr>
+            <tr>
+                <th>Description:</th>
+                <td>{{user.descripton}}</td>
+            </tr>
+        </table>
+    <h3>Leave a message for {{user.first_name}}</h3>
+    <form action="{% url 'dashboard:message' %}" method="post">
+        <textarea name="message" rows="8" cols="40"></textarea>
+        <input type="submit" value="Post">
+    </form>
+    {% for message in messages %}
+        <p>{{mesage.created_by}} wrote</p>
+        <p>{{message.updated_at}}</p>
+        <p>{{message.message}}</p>
+        {% for comment in comments %}
+            {% if message.id == comment.message_id %}
+            <p><a href="">{{comment.created_by}}</a> wrote</p>
+            <p>{{comment.updated_at}}</p>
+            <p>{{comment.comment}}</p>
+            {% endif %}
+        {% endfor %}
+        <form action="{% url 'dashboard:comment' %}" method="post">
+            <textarea name="message" rows="8" cols="40"></textarea>
+            <input type="submit" value="Post">
+        </form>
+    {% endfor %}
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--  -->

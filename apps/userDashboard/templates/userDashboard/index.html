@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Welcome</title>
+    </head>
+    <body>
+        <div id="head">
+            <h3>Test App</h3>
+            <h6>Home</h6>
+            <h6><a href="{% url 'dashboard:login' %}">Sign In</a></h6>
+        </div>
+        <h1>Welcome to the Test</h1>
+        <p>We're going to build a cool application using  MVC framework!</p>
+        <form action="{% url 'dashboard:login' %}" method="post">
+            <input type="submit" value="Start">
+        </form>
+        <div>
+            <h4>Manage Users</h4>
+            <p>Using this application, you'll learn how to add, remove, and edit users for the applicatoin.</p>
+        </div>
+        <div>
+            <h4>Leave Messages</h4>
+            <p>Users will be able to leave a message to another user using this application</p>
+        </div>
+        <div>
+            <h4>Edit User Information</h4>
+            <p>Admins will be able to edit another user's information (email address, first name, last name, etc).</p>
+        </div>
+    </body>
+</html>
